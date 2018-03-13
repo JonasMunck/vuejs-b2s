@@ -412,11 +412,136 @@ export default {
 
 ---
 
+## It should say hi to user
 
+```js
+it('should say hi to user', () => {
+  const Constructor = Vue.extend(Greeting)
+  const vm = new Constructor({propsData: {username: 'Jonas'}}).$mount()
+  expect(vm.$el.textContent)
+  .toContain('Hi Jonas, hope you have a nice day!')
+})
+```
 
+Note:
+Run `npm run unit` after adding test
 
 ---
-routing
+
+## 2 seconds pause
+
+Any Questions?
+
+---
+
+## Next Step - Routing
+
+- routing framework is included in the webpack template
+- maps a url path to a container
+- inject router in top component
+
+```html
+<!-- src/App.vue> -->
+<router-view />
+```
+
+---
+
+
+### Convert existing code to use router
+
+Note:
+
+App.vue
+<template>
+  <v-app>
+    <router-view />
+  </v-app>
+</template>
+
+<script>
+
+</script>
+
+
+src/pages/home/Home.vue
+<template>
+  <v-container>
+    <v-layout row>
+      <v-flex xs2>
+
+        <!-- where things happen -->
+        <v-text-field
+          label="Username"
+          v-model="username" />
+        <!-- end of where things happen -->
+        <greeting v-bind:username="username"/>
+
+      </v-flex>
+    </v-layout>
+  </v-container>
+</template>
+
+<script>
+import Greeting from '@/components/Greeting'
+export default {
+  components: {
+    Greeting
+  },
+
+  data () {
+    return {
+      msg: 'Hello World!',
+      username: ''
+    }
+  }
+}
+</script>
+
+src/nextlevel/NextLevel.vue
+<template>
+  <v-container>
+    <v-layout row>
+      <div class="display-1">Next level</div>
+    </v-layout>
+  </v-container>
+</template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style>
+
+</style>
+
+
+
+src/pages/router/index.js
+
+import Vue from 'vue'
+import Router from 'vue-router'
+import HelloWorld from '@/components/HelloWorld'
+
+Vue.use(Router)
+
+export default new Router({
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: require('@/pages/home/Home').default
+    },
+    {
+      path: '/next-level',
+      name: 'next-level',
+      component: require('@/pages/nextlevel/NextLevel').default
+    }
+  ]
+})
+
 
 ---
 
