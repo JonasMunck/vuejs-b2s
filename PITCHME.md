@@ -64,7 +64,7 @@ vue init webpack vue-demo
 
 ### Reactive bindings
 
-```vue
+```
 <template>
   <div>{{msg}}</div>
 </template>
@@ -86,7 +86,7 @@ export default {
 
 ---
 
-```vue
+```
 <template>
   <v-app>
     <v-container>
@@ -119,7 +119,7 @@ export default {
 
 direct in the template
 
-```vue
+```
 Hi {{ username.toUpperCase() }}, hope you have a nice day!
 ```
 
@@ -129,7 +129,7 @@ Hi {{ username.toUpperCase() }}, hope you have a nice day!
 
 using method
 
-```vue
+```
 <template>
   <v-app>
     <v-container>
@@ -168,7 +168,7 @@ export default {
 
 using computed - the correct way
 
-```vue
+```
 <template>
   <v-app>
     <v-container>
@@ -212,7 +212,7 @@ Lets make it look more nice!
 ---
 
 
-```vue
+```
 <template>
   <v-app>
     <v-container>
@@ -238,7 +238,7 @@ Lets make it look more nice!
 
 Conditional rendering
 
-```vue
+```
 <div v-if="username !== ''">
   Hi {{ upperCaseUsername }}, hope you have a nice day!
 </div>
@@ -412,9 +412,15 @@ export default {
 
 ---
 
+
+
+
+---
 routing
 
 ---
+
+HTTP
 
 ```
 npm install --save axios
