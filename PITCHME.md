@@ -200,14 +200,27 @@ export default {
 }
 </script>
 ```
+---
+
+Recap
+
+- v-model to bind template <-> model
+- computed for pure transformations, when data on instance changes.
+- we will see correct usage of `methods` later
+
 
 ---
 
 Lets make it look more nice!
 
-- grids, rows
-- vuetify.js
-- bootstrap, ...
+- frontend development is so much more than angular, react, elm, vue
+
+- layout, buttons, forms, spinners, modals, ...
+
+Note:
+open vuetify, go to https://vuetifyjs.com/en/components/alerts and copy paste the success alert into the code.
+
+Then talk about the GRID
 
 ---
 
@@ -247,6 +260,9 @@ Conditional rendering
 </div>
 ```
 
+Note:
+There is no UI without UX - the experience should be good for the user. Don't say hi if no username has been entered.
+
 ---
 
 
@@ -255,7 +271,10 @@ Conditional rendering
  - abstraction that allows us to build large-scale applications
  - composed of small, self-contained, and often reusable components
 
-![Components](https://github.com/JonasMunck/vuejs-b2s/raw/master/components.png)
+
+---
+
+![Components](https://github.com/JonasMunck/vuejs-b2s/blob/master/img/components.PNG)
 
 
 ---
@@ -283,7 +302,13 @@ export default {
 </style>
 ```
 
+Note:
+before adding component: run
+git co -f 35eed81
+
 ---
+
+### In parent
 
 ```html
 <template>
@@ -312,6 +337,18 @@ export default {
 - Every component instance has its own isolated scope
 - cannot directly reference parent data in a child component
 
+---
+
+```js
+<script>
+export default {
+  props: ['username']
+}
+</script>
+```
+
+---
+
 ```html
 <!-- in parent -->
 <greeting username="Jonas">
@@ -321,7 +358,7 @@ To make it dynamic
 
 ```html
 <!-- in parent -->
-<greeting :username="Jonas">
+<greeting :username="username">
 ```
 
 
@@ -331,7 +368,7 @@ unit test
 
 ---
 
-### The karma API
+### JS Unit test - syntax
 
 ```js
 describe('Greeting.vue', () => {
@@ -451,7 +488,7 @@ Any Questions?
 ## Project structure
 
 
-```text
+```
 src
   assets
   components
@@ -475,7 +512,7 @@ src
 @[10-12]
 
 
-https://medium.com/@alexmngn/how-to-better-organize-your-react-applications-2fd3ea1920f1
+Source: https://medium.com/@alexmngn/how-to-better-organize-your-react-applications-2fd3ea1920f1
 
 ---
 
@@ -595,6 +632,25 @@ export default new Router({
 
 ---
 
+```html
+<v-btn
+  @click="navToNextLevel"
+>
+  To Next level
+</v-btn>
+```
+
+```js
+methods: {
+    navToNextLevel () {
+      this.$router.push({name: 'next-level'})
+    }
+  }
+```
+
+
+---
+
 ## Advanced routing
 
 - Nested views for advanced layout
@@ -612,6 +668,114 @@ HTTP
 
 ```
 npm install --save axios
+```
+
+---
+
+```js
+import axios from 'axios'
+
+Vue.use(Vuetify)
+
+Vue.config.productionTip = false
+
+let axiosInstance = axios.create({
+  baseURL: 'http://localhost:8000'
+})
+
+Vue.http = Vue.prototype.$http = axiosInstance
+```
+
+@[1]
+@[7-11]
+
+---
+
+##### Fetch data
+
+Add method for fetching data
+
+```js
+  methods: {
+    async fetchPosts () {
+      let response = await this.$http.get('https://jsonplaceholder.typicode.com/posts')
+      console.log(response)
+      return response.data
+    }
+  }
+```
+
+---
+
+Another lifecycle event - **created**
+
+```js
+  async created () {
+    this.posts = await this.fetchPosts()
+  },
+```
+
+---
+
+Render posts in template
+
+```html
+<template>
+  <v-container>
+    <v-layout row>
+      <div class="display-1">Next level</div>
+      {{ posts }}
+    </v-layout>
+  </v-container>
+</template>
+```
+
+---
+
+A Components for posts
+
+_@/src/pages/nextlevel/components/Posts.vue_
+
+```html
+<template>
+  <div>{{posts}}</div>
+</template>
+
+<script>
+export default {
+  props: ['posts']
+}
+</script>
+
+<style>
+
+</style>
+```
+
+---
+
+
+A post component
+
+```html
+<template>
+  <v-card>
+    <v-card-title primary-title>
+      <h3 class="headline mb-0">{{ post.title }}</h3>
+    </v-card-title>
+    <v-card-text>{{post.body}}</v-card-text>
+  </v-card>
+</template>
+
+<script>
+export default {
+  props: ['post']
+}
+</script>
+
+<style>
+
+</style>
 ```
 
 ---
