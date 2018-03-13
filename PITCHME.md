@@ -64,7 +64,7 @@ vue init webpack vue-demo
 
 ### Reactive bindings
 
-```
+```html
 <template>
   <div>{{msg}}</div>
 </template>
@@ -86,7 +86,7 @@ export default {
 
 ---
 
-```
+```html
 <template>
   <v-app>
     <v-container>
@@ -129,7 +129,7 @@ Hi {{ username.toUpperCase() }}, hope you have a nice day!
 
 using method
 
-```
+```html
 <template>
   <v-app>
     <v-container>
@@ -168,7 +168,7 @@ export default {
 
 using computed - the correct way
 
-```
+```html
 <template>
   <v-app>
     <v-container>
@@ -212,7 +212,7 @@ Lets make it look more nice!
 ---
 
 
-```
+```html
 <template>
   <v-app>
     <v-container>
@@ -238,7 +238,7 @@ Lets make it look more nice!
 
 Conditional rendering
 
-```
+```html
 <div v-if="username !== ''">
   Hi {{ upperCaseUsername }}, hope you have a nice day!
 </div>
@@ -261,7 +261,7 @@ Conditional rendering
 ---
 ### Add Greeting component
 
-```
+```html
 <!-- @/components/Greeting.vue -->
 <template>
   <div v-if="username !== ''">
@@ -285,7 +285,7 @@ export default {
 
 ---
 
-```
+```html
 <template>
 <!-- ... more code --->
 
@@ -312,14 +312,14 @@ export default {
 - Every component instance has its own isolated scope
 - cannot directly reference parent data in a child component
 
-```
+```html
 <!-- in parent -->
 <greeting username="Jonas">
 ```
 
 To make it dynamic
 
-```
+```html
 <!-- in parent -->
 <greeting :username="Jonas">
 ```
@@ -380,7 +380,7 @@ To contain value:
 
 ### Fix broken test
 
-```
+```html
 <template>
   <div v-if="validUsername">
     Hi {{ username }}, hope you have a nice day!
@@ -448,11 +448,48 @@ Any Questions?
 ---
 
 
+## Project structure
+
+
+```text
+src
+  assets
+  components
+    global components, like notifications
+  pages
+    home
+      Home.vue <- the main file
+      components
+        specific only for home page
+      pages
+        subpages to home
+        can also have components
+    another-top-page
+```
+
+@[3-4]
+@[5-13]
+@[6-12]
+@[7]
+@[8-9]
+@[10-12]
+
+
+https://medium.com/@alexmngn/how-to-better-organize-your-react-applications-2fd3ea1920f1
+
+---
+
 ### Convert existing code to use router
 
-Note:
+Back to the code
 
-App.vue
+---
+
+
+
+## App.vue
+
+```html
 <template>
   <v-app>
     <router-view />
@@ -462,9 +499,14 @@ App.vue
 <script>
 
 </script>
+```
+
+---
 
 
-src/pages/home/Home.vue
+#### src/pages/home/Home.vue
+
+```html
 <template>
   <v-container>
     <v-layout row>
@@ -497,8 +539,13 @@ export default {
   }
 }
 </script>
+```
 
-src/nextlevel/NextLevel.vue
+---
+
+#### src/nextlevel/NextLevel.vue
+
+```html
 <template>
   <v-container>
     <v-layout row>
@@ -516,11 +563,14 @@ export default {
 <style>
 
 </style>
+```
+
+---
 
 
+#### src/pages/router/index.js
 
-src/pages/router/index.js
-
+```js
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
@@ -541,6 +591,19 @@ export default new Router({
     }
   ]
 })
+```
+
+---
+
+## Advanced routing
+
+- Nested views for advanced layout
+
+https://router.vuejs.org/en/essentials/named-views.html
+
+- Guards for doing f.ex permission based checks
+
+https://router.vuejs.org/en/advanced/navigation-guards.html
 
 
 ---
