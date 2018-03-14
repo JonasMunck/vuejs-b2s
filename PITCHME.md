@@ -104,6 +104,8 @@ export default {
 ```
 
 Note:
+Make an input field
+important: v-model and binding
 we will talk about v-container and styling later
 
 ---
@@ -245,6 +247,11 @@ https://material.io/guidelines/
 </template>
 ```
 
+Note:
+to get here: git co -f v3
+
+offset-xs1
+
 ---
 
 Conditional rendering
@@ -272,7 +279,7 @@ There is no UI without UX - the experience should be good for the user. Don't sa
 
 ---
 
-![Components](https://github.com/JonasMunck/vuejs-b2s/blob/master/img/components.PNG)
+![Components](https://github.com/JonasMunck/vuejs-b2s/raw/master/img/components.PNG)
 
 
 ---
