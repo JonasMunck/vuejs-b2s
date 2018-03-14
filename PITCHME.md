@@ -45,6 +45,9 @@ vue init webpack vue-demo
 
 Lets look at the folder structure!
 
+Note:
+git co -f v1
+
 ---
 
 ### Hello world
