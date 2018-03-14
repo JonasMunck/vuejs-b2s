@@ -340,6 +340,7 @@ export default {
 ---
 
 ```js
+// in Greeting.vue
 <script>
 export default {
   props: ['username']
@@ -350,14 +351,14 @@ export default {
 ---
 
 ```html
-<!-- in parent -->
+<!-- in App.vue -->
 <greeting username="Jonas">
 ```
 
 To make it dynamic
 
 ```html
-<!-- in parent -->
+<!-- in App.vue -->
 <greeting :username="username">
 ```
 
@@ -484,35 +485,9 @@ Any Questions?
 
 ---
 
-
 ## Project structure
 
-
-```
-src
-  assets
-  components
-    global components, like notifications
-  pages
-    home
-      Home.vue <- the main file
-      components
-        specific only for home page
-      pages
-        subpages to home
-        can also have components
-    another-top-page
-```
-
-@[3-4]
-@[5-13]
-@[6-12]
-@[7]
-@[8-9]
-@[10-12]
-
-
-Source: https://medium.com/@alexmngn/how-to-better-organize-your-react-applications-2fd3ea1920f1
+https://medium.com/@alexmngn/how-to-better-organize-your-react-applications-2fd3ea1920f1
 
 ---
 
@@ -632,7 +607,10 @@ export default new Router({
 
 ---
 
+How to navigate between paths?
+
 ```html
+<!-- Home.vue -->
 <v-btn
   @click="navToNextLevel"
 >
@@ -641,6 +619,7 @@ export default new Router({
 ```
 
 ```js
+// Home.vue
 methods: {
     navToNextLevel () {
       this.$router.push({name: 'next-level'})
@@ -691,6 +670,10 @@ Vue.http = Vue.prototype.$http = axiosInstance
 
 ---
 
+We can now use `this.$http` in all our vue components
+
+---
+
 ##### Fetch data
 
 Add method for fetching data
@@ -698,8 +681,9 @@ Add method for fetching data
 ```js
   methods: {
     async fetchPosts () {
-      let response = await this.$http.get('https://jsonplaceholder.typicode.com/posts')
-      console.log(response)
+      let response = await this
+        .$http
+        .get('https://jsonplaceholder.typicode.com/posts')
       return response.data
     }
   }
@@ -707,7 +691,7 @@ Add method for fetching data
 
 ---
 
-Another lifecycle event - **created**
+A lifecycle hook - **created**
 
 ```js
   async created () {
@@ -752,6 +736,13 @@ export default {
 </style>
 ```
 
+Note:
+The posts component might look a bit trivial, but we will
+see that this is for a good reason.
+
+The purpose of this component is to fetch and coordinate how a single post
+should be rendered.
+
 ---
 
 
@@ -777,5 +768,8 @@ export default {
 
 </style>
 ```
+
+Note:
+Show https://vuetifyjs.com/en/components/cards
 
 ---
