@@ -3,9 +3,19 @@
 
 ---
 
+- Quick view on `***` management tool for more components
 - Build and develop with Webpack
 - live coding and unit testing (we will spend most time here)
-- Quick view on `***` management tool for more components
+
+---
+
+***
+
+---
+
+What will we do today?
+
+http://localhost:8080
 
 ---
 
@@ -688,8 +698,8 @@ let axiosInstance = axios.create({
 Vue.http = Vue.prototype.$http = axiosInstance
 ```
 
-@[1]
-@[7-11]
+@[2]
+@[8-12]
 
 Note:
 Mention API_BASE_URL and webpack
@@ -857,5 +867,50 @@ Put fake delay on http fetch
 
   },
 ```
+
+---
+
+
+Unit test!
+
+```js
+// test/unit/specs/Posts.spec.js
+import Vue from 'vue'
+import Posts from '@/pages/nextlevel/components/Posts'
+
+describe('Posts.vue', () => {
+  it('should render spinner circle', () => {
+    const Constructor = Vue.extend(Posts)
+    const vm = new Constructor().$mount()
+    expect(vm.$el.querySelector('.progress-circular__overlay'))
+    .toBeDefined()
+  })
+
+
+})
+```
+
+---
+
+
+### Recap
+
+- Routing,  `this.$router`
+- Http, `this.$http`
+- More components
+- style / UX for "free"
+
+---
+
+Is this all?
+
+- No!
+- state management
+- directives, mixins
+- webpack for production
+
+---
+
+Questions?
 
 ---
