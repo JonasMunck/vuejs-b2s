@@ -494,11 +494,26 @@ Any Questions?
 
 https://medium.com/@alexmngn/how-to-better-organize-your-react-applications-2fd3ea1920f1
 
+Note: before going into details on routing, talk about project structure
+
+naive structure: organize file by type
+e.g components, subfolders of components, ...
+
+we strucure by feature
+
+main rule: not allowed to use things in a sibling folder
+
+
+
 ---
 
 ### Convert existing code to use router
 
 Back to the code
+
+Note:
+
+run git co -f v6 for getting all navigation in place
 
 ---
 
@@ -632,6 +647,8 @@ methods: {
   }
 ```
 
+Note:
+run git co -f fcdc230 for button navigation
 
 ---
 
@@ -657,6 +674,7 @@ npm install --save axios
 ---
 
 ```js
+// src/main.js
 import axios from 'axios'
 
 Vue.use(Vuetify)
@@ -687,6 +705,7 @@ We can now use `this.$http` in all our vue components
 Add method for fetching data
 
 ```js
+  // src/pages/nextlevel/NextLevel.vue
   methods: {
     async fetchPosts () {
       let response = await this
@@ -699,7 +718,7 @@ Add method for fetching data
 
 ---
 
-A lifecycle hook - **created**
+A lifecycle hook - [created](https://vuejs.org/v2/guide/instance.html#Lifecycle-Diagram)
 
 ```js
   async created () {
