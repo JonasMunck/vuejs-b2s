@@ -14,23 +14,6 @@ Requirements
 - Node (v8+) and npm
 - bash-like terminal (git bash)
 
-https://nodejs.org/en/download/
-
----
-
-### What is even node and npm
-
-
-> Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient.
-
----
-
-#### npm
-
-> npm is the package manager for JavaScript and the world’s largest software registry. Discover packages of reusable code — and assemble them in powerful new ways.
-
-- just as `pip` (python), `maven` (java), `nuget` (C#), ...
-
 ---
 
 ### Installing vue
@@ -50,6 +33,10 @@ vue init webpack vue-demo
 
 ---
 
+Lets look at the folder structure!
+
+---
+
 ### Hello world
 
 <!-- git co v1 -->
@@ -61,8 +48,6 @@ vue init webpack vue-demo
 - webpage runs on http://localhost:8080
 
 ---
-
-### Reactive bindings
 
 ```html
 <template>
@@ -79,11 +64,16 @@ export default {
 }
 </script>
 
+<style>
+
+</style>
 ```
 
----
+Note:
+Single File Component - walk through
 
 
+rm -r src/ && git co -f v1
 ---
 
 ```html
@@ -112,6 +102,9 @@ export default {
 }
 </script>
 ```
+
+Note:
+we will talk about v-container and styling later
 
 ---
 
@@ -208,6 +201,9 @@ Recap
 - computed for pure transformations, when data on instance changes.
 - we will see correct usage of `methods` later
 
+Note:
+rm -r src/ && git co -f ba35253 to get to computed version
+(for resetting before going to styling)
 
 ---
 
@@ -221,6 +217,8 @@ Note:
 open vuetify, go to https://vuetifyjs.com/en/components/alerts and copy paste the success alert into the code.
 
 Then talk about the GRID
+
+https://material.io/guidelines/
 
 ---
 
@@ -607,7 +605,7 @@ export default new Router({
 
 ---
 
-How to navigate between paths?
+Trigger Navigation
 
 ```html
 <!-- Home.vue -->
@@ -668,6 +666,9 @@ Vue.http = Vue.prototype.$http = axiosInstance
 @[1]
 @[7-11]
 
+Note:
+Mention API_BASE_URL and webpack
+
 ---
 
 We can now use `this.$http` in all our vue components
@@ -698,6 +699,8 @@ A lifecycle hook - **created**
     this.posts = await this.fetchPosts()
   },
 ```
+
+Note: show lifecycle diagram
 
 ---
 
@@ -746,7 +749,7 @@ should be rendered.
 ---
 
 
-A post component
+A post component, styled
 
 ```html
 <template>
@@ -771,5 +774,62 @@ export default {
 
 Note:
 Show https://vuetifyjs.com/en/components/cards
+
+---
+
+```html
+<!-- Update posts component to use post -->
+<template>
+  <div>
+    <div v-for="post in posts" :key="post.id">
+      <post :post="post" />
+    </div>
+  </div>
+</template>
+
+<script>
+import Post from './Post'
+export default {
+  props: ['posts'],
+  components: { Post }
+}
+</script>
+```
+
+@[4-6]
+@[11]
+@[14]
+
+---
+
+Spinner while loading posts
+
+```html
+<template>
+  <div v-if="posts === null" class="text-xs-center">
+    <v-progress-circular indeterminate color="primary"></v-progress-circular>
+  </div>
+  <div v-else>
+    <div v-for="post in posts" :key="post.id">
+      <post :post="post" />
+    </div>
+  </div>
+</template>
+```
+
+---
+
+Put fake delay on http fetch
+
+```js
+  async created () {
+    setTimeout(() => {
+      // await does not work within setTimeout,
+      // therefore promise based syntax is used here
+      this.fetchPosts().then(d => (this.posts = d))
+    }, 5000)
+
+  },
+```
 
 ---
